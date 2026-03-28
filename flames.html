@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAMES Calculator</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #dbeafe 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .container {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .header-icon {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .btn-calculate {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            border: none;
+        }
+
+        .btn-calculate:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .btn-calculate:active {
+            transform: scale(0.95);
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .result-emoji {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 3rem;
+            animation: bounce 1s infinite;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .result-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-try-again {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #6b7280;
+            border: none;
+        }
+
+        .btn-try-again:hover {
+            transform: scale(1.05);
+            background: #9333ea;
+        }
+
+        .btn-try-again:active {
+            transform: scale(0.95);
+        }
+
+        .names-display {
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Header -->
+                <div class="text-center mb-4">
+                    <div class="d-flex align-items-center justify-content-center gap-3 mb-3">
+                        <span class="header-icon">❤️</span>
+                        <h1 class="mb-0">FLAMES Calculator</h1>
+                        <span class="header-icon">❤️</span>
+                    </div>
+                    <p class="text-muted">
+                        Discover your relationship destiny! Enter two names to find out.
+                    </p>
+                </div>
+
+                <!-- Main Card -->
+                <div class="main-card">
+                    <!-- Input Form -->
+                    <div id="inputForm">
+                        <div class="mb-3">
+                            <label for="name1" class="form-label">First Name</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name1"
+                                placeholder="Enter first name"
+                            >
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="name2" class="form-label">Second Name</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name2"
+                                placeholder="Enter second name"
+                            >
+                        </div>
+
+                        <button
+                            class="btn btn-primary btn-calculate w-100 mb-4"
+                            onclick="calculateFLAMES()"
+                        >
+                            Calculate FLAMES
+                        </button>
+
+                        <!-- Info Box -->
+                        <div class="info-box">
+                            <h6 class="text-muted mb-2">What is FLAMES?</h6>
+                            <div class="text-muted small">
+                                <div>F - Friends 🤝</div>
+                                <div>L - Love ❤️</div>
+                                <div>A - Affection 💕</div>
+                                <div>M - Marriage 💍</div>
+                                <div>E - Enemies ⚔️</div>
+                                <div>S - Siblings 👫</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Display -->
+                    <div id="resultDisplay" class="hidden">
+                        <div class="text-center">
+                            <div id="resultEmoji" class="result-emoji"></div>
+
+                            <h5 class="mb-3">Your Relationship is:</h5>
+                            <div id="resultBadge" class="result-badge mb-4"></div>
+
+                            <div class="names-display mb-4">
+                                <p class="text-muted mb-0" id="namesText"></p>
+                            </div>
+
+                            <button
+                                class="btn btn-secondary btn-try-again w-100"
+                                onclick="resetCalculator()"
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <p class="text-center text-muted small mt-4">
+                    Just for fun! FLAMES is a classic relationship game.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // FLAMES Map
+        const flamesMap = {
+            'F': { full: 'Friends', emoji: '🤝', color: '#3b82f6' },
+            'L': { full: 'Love', emoji: '❤️', color: '#ef4444' },
+            'A': { full: 'Affection', emoji: '💕', color: '#ec4899' },
+            'M': { full: 'Marriage', emoji: '💍', color: '#a855f7' },
+            'E': { full: 'Enemies', emoji: '⚔️', color: '#f97316' },
+            'S': { full: 'Siblings', emoji: '👫', color: '#22c55e' }
+        };
+
+        // Add Enter key support
+        document.getElementById('name1').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculateFLAMES();
+        });
+
+        document.getElementById('name2').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculateFLAMES();
+        });
+
+        function calculateFLAMES() {
+            const name1 = document.getElementById('name1').value;
+            const name2 = document.getElementById('name2').value;
+
+            // Validate input
+            if (!name1.trim() || !name2.trim()) {
+                alert('Please enter both names!');
+                return;
+            }
+
+            // Convert to lowercase and remove spaces
+            let str1 = name1.toLowerCase().replace(/\s/g, '');
+            let str2 = name2.toLowerCase().replace(/\s/g, '');
+
+            // Remove common characters
+            for (let char of str1.split('')) {
+                const index = str2.indexOf(char);
+                if (index !== -1) {
+                    str1 = str1.replace(char, '');
+                    str2 = str2.replace(char, '');
+                }
+            }
+
+            // Count remaining characters
+            const count = str1.length + str2.length;
+
+            // FLAMES elimination
+            let flames = ['F', 'L', 'A', 'M', 'E', 'S'];
+            let index = 0;
+
+            while (flames.length > 1) {
+                index = (index + count - 1) % flames.length;
+                flames.splice(index, 1);
+                if (index === flames.length) {
+                    index = 0;
+                }
+            }
+
+            // Get result
+            const result = flames[0];
+            const resultData = flamesMap[result];
+
+            // Display result
+            document.getElementById('resultEmoji').textContent = resultData.emoji;
+            document.getElementById('resultEmoji').style.backgroundColor = resultData.color;
+            document.getElementById('resultBadge').textContent = resultData.full;
+            document.getElementById('resultBadge').style.backgroundColor = resultData.color;
+            document.getElementById('namesText').textContent = `${name1} & ${name2}`;
+
+            // Toggle views
+            document.getElementById('inputForm').classList.add('hidden');
+            document.getElementById('resultDisplay').classList.remove('hidden');
+        }
+
+        function resetCalculator() {
+            // Clear inputs
+            document.getElementById('name1').value = '';
+            document.getElementById('name2').value = '';
+
+            // Toggle views
+            document.getElementById('inputForm').classList.remove('hidden');
+            document.getElementById('resultDisplay').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
